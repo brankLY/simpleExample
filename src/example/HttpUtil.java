@@ -121,18 +121,23 @@ public class HttpUtil {
         jsonObject.put("username", "admin");
         jsonObject.put("password", "admin");
         // 调用登陆接口，拿到jwt token
-        String res1 = HttpUtil.sendJsonPost("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/authenticate",jsonObject,"UTF-8");
+        String resJwt = HttpUtil.sendJsonPost("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/authenticate",jsonObject,"UTF-8");
         System.out.println("res1");
-        System.out.println(res1);
+        System.out.println(resJwt);
         // 解析jwt
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<String, Object>();
-        map = gson.fromJson(res1, map.getClass());
+        map = gson.fromJson(resJwt, map.getClass());
         String jwt=(String) map.get("id_token");
         // 调用获取所有披露给大众的IP信息接口
         String res = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/public-disclosures-pageable","",jwt);
         System.out.println("res");
         System.out.println(res);
+        // 调用查询所有ip接口
+        // 方法内入参传入jwt
+        String res1 = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/ips","",jwt);
+        System.out.println("res1");
+        System.out.println(res1);
         // 调用查询ip接口
         // url拼接id，本例中id为1
         // 方法内入参传入jwt
