@@ -122,7 +122,7 @@ public class HttpUtil {
         jsonObject.put("password", "admin");
         // 调用登陆接口，拿到jwt token
         String resJwt = HttpUtil.sendJsonPost("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/authenticate",jsonObject,"UTF-8");
-        System.out.println("res1");
+        System.out.println("登陆");
         System.out.println(resJwt);
         // 解析jwt
         Gson gson = new Gson();
@@ -130,25 +130,25 @@ public class HttpUtil {
         map = gson.fromJson(resJwt, map.getClass());
         String jwt=(String) map.get("id_token");
         // 调用获取所有披露给大众的IP信息接口
-        String res = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/public-disclosures-pageable","",jwt);
-        System.out.println("res");
+        String res = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/public-disclosures","",jwt);
+        System.out.println("所有披露给大众的IP");
         System.out.println(res);
         // 调用查询所有ip接口
         // 方法内入参传入jwt
-        String res1 = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/ips","",jwt);
-        System.out.println("res1");
+        String res1 = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/ips-all","",jwt);
+        System.out.println("所有ip");
         System.out.println(res1);
         // 调用查询ip接口
         // url拼接id，本例中id为1
         // 方法内入参传入jwt
         String res2 = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/ips/1","",jwt);
-        System.out.println("res2");
+        System.out.println("查询ip 1");
         System.out.println(res2);
         // 调用获取IP审核的状态接口
         // url拼接id，本例中id为1
         // 方法内入参传入jwt
         String res3 = HttpUtil.sendGet("http://edison.c68c2f85e7b9941f997b9490c4f26d558.cn-hangzhou.alicontainer.com/api/tto-disclosures/1","",jwt);
-        System.out.println("res3");
+        System.out.println("查询ip 1审核状态");
         System.out.println(res3);
     }
 
